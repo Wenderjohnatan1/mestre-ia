@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="IA que analisa seus prints e te dá as respostas certas para manter a conversa acesa em 3 segundos.">
+<title>Mestre da Conversa IA — Respostas que ela não consegue ignorar</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1715760463010660');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1715760463010660&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+
+/* ── Design tokens ── */
+:root {
+  --bg:   #09090F;
+  --s1:   #0F0F1C;
+  --s2:   #141427;
+  --s3:   #1A1A32;
+  --v:    #3b82f6;
+  --m:    #3b82f6;
+  --g:    linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --t:    #EEEDF8;
+  --mt:   #8684A8;
+  --dim:  #3C3A5C;
+  --r:    14px;
+  --rs:   10px;
+}
+
+/* ── Base ── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--t);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Ambient glow orbs ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+}
+.orb-1 {
+  width: 65vw; height: 65vw;
+  top: -15%; left: -25%;
+  background: radial-gradient(circle, rgba(59,130,246,.11) 0%, transparent 70%);
+}
+.orb-2 {
+  width: 55vw; height: 55vw;
+  bottom: 5%; right: -22%;
+  background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 70%);
+}
+
+/* ── Layout wrapper ── */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Gradient text ── */
+.gt {
+  background: var(--g);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── CTA Button ── */
+.cta {
+  display: block;
+  width: 100%;
+  padding: 18px 20px;
+  background: var(--g);
+  border: none;
+  border-radius: var(--r);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  animation: glow-pulse 3.5s ease-in-out infinite;
+  transition: transform .15s ease;
+}
+.cta:hover { transform: translateY(-2px); }
+.cta:active { transform: translateY(0); }
+
+@keyframes glow-pulse {
+  0%,100% { box-shadow: 0 0 28px rgba(59,130,246,.35); }
+  50%      { box-shadow: 0 0 48px rgba(59,130,246,.5);  }
+}
+
+/* ── Sections ── */
+.s {
+  padding-top: 60px;
+}
+.s-hero {
+  padding-top: 72px;
+  position: relative;
+}
+.s-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(59,130,246,.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 0 0 24px 24px;
+}
+.s-last { padding-bottom: 80px; }
+
+/* ── Type scale ── */
+.t-hero {
+  font-size: clamp(28px, 8.5vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+.t-section {
+  font-size: clamp(20px, 5.5vw, 25px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+.t-card-head {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.t-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--v);
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.t-body { font-size: 16px; color: var(--mt); line-height: 1.72; }
+.t-body-sm { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+
+/* ── Cards ── */
+.card {
+  background: var(--s1);
+  border-radius: var(--r);
+  padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,.04);
+}
+.card-v { border-left: 3px solid var(--v); }
+.card-r { border-left: 3px solid rgba(255,80,80,.45); background: rgba(255,40,40,.03); border: 1px solid rgba(255,60,60,.1); border-left: 3px solid rgba(255,80,80,.45); }
+
+/* ───────────────────────────────────
+   1. HERO
+─────────────────────────────────── */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(59,130,246,.1);
+  border: 1px solid rgba(59,130,246,.25);
+  border-radius: 100px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--v);
+  margin-bottom: 26px;
+}
+.blink {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--v);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .2; }
+}
+.hero-lead {
+  font-size: 15px;
+  color: var(--mt);
+  line-height: 1.72;
+  margin: 14px 0 28px;
+  max-width: 400px;
+}
+
+/* ── Mockup image ── */
+.mockup-image {
+  margin: 36px auto;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mockup-image img {
+  max-width: 280px;
+  height: auto;
+}
+
+/* ───────────────────────────────────
+   6. DEMO / STEPS
+─────────────────────────────────── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-top: 24px;
+}
+.step {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.step-n {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--g);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(34,197,94,.32);
+}
+.step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.step-body p  { font-size: 14.5px; color: var(--mt); line-height: 1.6; }
+
+/* ───────────────────────────────────
+   7. PUV Comparison
+─────────────────────────────────── */
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+.vs-col {
+  background: var(--s2);
+  border-radius: var(--rs);
+  padding: 16px 14px;
+}
+.vs-col.bad  { border-top: 2px solid rgba(255,80,80,.4); }
+.vs-col.good { border-top: 2px solid var(--v); }
+.vs-col-h {
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.vs-col.bad  .vs-col-h { color: rgba(255,120,120,.7); }
+.vs-col.good .vs-col-h { color: var(--v); }
+.vs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.vs-list li {
+  font-size: 12px;
+  color: var(--mt);
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.vs-list li span { flex-shrink: 0; margin-top: 1px; }
+
+/* ───────────────────────────────────
+   8. BENEFITS
+─────────────────────────────────── */
+.ben-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+.ben-item {
+  background: var(--s1);
+  border: 1px solid rgba(255,255,255,.04);
+  border-radius: var(--r);
+  padding: 18px 14px;
+}
+.ben-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.ben-item h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+.ben-item p  { font-size: 12px; color: var(--mt); line-height: 1.5; }
+
+/* ───────────────────────────────────
+   9. USE CASES tags
+─────────────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.tag {
+  padding: 6px 14px;
+  background: var(--s2);
+  border: 1px solid var(--s3);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mt);
+}
+
+/* ───────────────────────────────────
+   10. TESTIMONIALS (chat bubbles)
+─────────────────────────────────── */
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+.testi {
+  background: var(--s1);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 14px 14px 14px 4px;
+  padding: 20px 20px 16px;
+}
+.testi p {
+  font-size: 15px;
+  line-height: 1.65;
+  font-style: italic;
+  color: var(--t);
+  margin-bottom: 14px;
+}
+.testi-auth { display: flex; align-items: center; gap: 10px; }
+.testi-av {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--g);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.testi-name { font-size: 12.5px; font-weight: 600; color: var(--mt); }
+
+/* ───────────────────────────────────
+   11. FOR WHO
+─────────────────────────────────── */
+.fw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+.fw-card {
+  background: var(--s1);
+  border-radius: var(--r);
+  padding: 18px 14px;
+  border: 1px solid rgba(255,255,255,.04);
+}
+.fw-card.yes { border-top: 2px solid var(--v); }
+.fw-card.no  { border-top: 2px solid rgba(255,80,80,.4); }
+.fw-lbl {
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: block;
+}
+.fw-card.yes .fw-lbl { color: var(--v); }
+.fw-card.no  .fw-lbl { color: rgba(255,120,120,.75); }
+.fw-card p { font-size: 12.5px; color: var(--mt); line-height: 1.5; }
+
+/* ───────────────────────────────────
+   13. OFFER
+─────────────────────────────────── */
+.offer-card {
+  background: var(--s1);
+  border: 1px solid rgba(59,130,246,.28);
+  border-radius: var(--r);
+  padding: 32px 20px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(59,130,246,.06);
+}
+.offer-was   { font-size: 14px; color: var(--dim); text-decoration: line-through; margin-bottom: 5px; }
+.offer-label { font-size: 13px; color: var(--mt); margin-bottom: 6px; }
+.offer-price {
+  font-size: clamp(50px, 15vw, 62px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1;
+  margin-bottom: 5px;
+  color: var(--v);
+}
+.offer-price sup {
+  font-size: .42em;
+  vertical-align: super;
+  letter-spacing: -.01em;
+}
+.offer-once { font-size: 13px; color: var(--mt); margin-bottom: 28px; }
+
+.bonus-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+.bonus-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--s2);
+  border-radius: var(--rs);
+  padding: 14px;
+}
+.bonus-icon { font-size: 22px; flex-shrink: 0; line-height: 1.1; }
+.bonus-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.bonus-text p  { font-size: 12.5px; color: var(--mt); }
+
+/* ───────────────────────────────────
+   15. GUARANTEE
+─────────────────────────────────── */
+.guar-card {
+  background: var(--s1);
+  border-radius: var(--r);
+  padding: 24px 20px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 1px solid rgba(59,130,246,.2);
+}
+.guar-icon { font-size: 44px; flex-shrink: 0; line-height: 1; }
+.guar-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.guar-body p  { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+
+/* ───────────────────────────────────
+   16. FAQ accordion
+─────────────────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+.faq-item {
+  background: var(--s1);
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.04);
+}
+.faq-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--t);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: left;
+  padding: 17px 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.4;
+}
+.faq-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(59,130,246,.12);
+  color: var(--v);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 400;
+  flex-shrink: 0;
+  transition: transform .25s, background .25s;
+  line-height: 1;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: rgba(59,130,246,.25);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+.faq-item.open .faq-a { max-height: 250px; }
+.faq-a-inner {
+  padding: 0 18px 17px;
+  font-size: 14.5px;
+  color: var(--mt);
+  line-height: 1.65;
+}
+
+/* ───────────────────────────────────
+   17. FINAL CTA
+─────────────────────────────────── */
+.sec-badges {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+.sec-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--dim);
+}
+
+/* ── Utilities ── */
+.mb-4  { margin-bottom: 4px;  }
+.mb-8  { margin-bottom: 8px;  }
+.mb-12 { margin-bottom: 12px; }
+.mb-14 { margin-bottom: 14px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-28 { margin-bottom: 28px; }
+.center { text-align: center; }
+.strong { color: var(--t); font-weight: 600; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .cta, .blink { animation: none; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Ambient orbs -->
+<div class="orb orb-1" aria-hidden="true"></div>
+<div class="orb orb-2" aria-hidden="true"></div>
+
+<main class="page">
+
+
+  <!-- ─── 1. HERO ─────────────────────────── -->
+  <section class="s s-hero">
+
+    <div class="hero-eyebrow">
+      <span class="blink" aria-hidden="true"></span>
+      Inteligência Artificial para conversas
+    </div>
+
+    <h1 class="t-hero">
+      Transforme mensagens curtas e o temido "vácuo" em conversas envolventes em
+      <span class="gt">apenas&nbsp;3&nbsp;segundos.</span>
+    </h1>
+
+    <p class="hero-lead">
+      Suba o print da sua tela e deixe a Inteligência Artificial te dar a resposta exata para manter o interesse dela aceso, sem depender de improviso ou frases prontas artificiais.
+    </p>
+
+    <!-- Mockup image -->
+    <div class="mockup-image">
+      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/ChatGPT%20Image%2031_08_2026,%2020_58_14.png?raw=true" alt="Mockup do Mestre da Conversa IA">
+    </div>
+
+    <a href="#mecanismo" class="cta">QUERO TESTAR A IA NAS MINHAS CONVERSAS</a>
+
+  </section>
+
+
+  <!-- ─── 2. DOR ────────────────────────────── -->
+  <section class="s">
+    <div class="card card-r">
+      <p style="font-size: 17px; line-height: 1.72;">
+        Você manda uma mensagem e recebe um <strong class="strong">"ok"</strong>. Ou pior: ela visualiza, o tempo passa e nenhuma resposta. O relógio corre, o medo de perder o contato bate e você congela. O que escrever agora sem parecer desesperado, insistente ou chato demais?
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ─── 3. DESEJO ─────────────────────────── -->
+  <section class="s">
+    <p style="font-size: clamp(17px, 5vw, 20px); font-weight: 600; line-height: 1.5; letter-spacing: -.01em;">
+      Tudo o que você queria era saber <span class="gt">exatamente o que dizer</span>, no momento certo. Ter aquele "papo natural" e instigante que os caras confiantes têm — deixando ela intrigada e ansiosa pela sua próxima notificação no celular.
+    </p>
+  </section>
+
+
+  <!-- ─── 4. REFRAME ───────────────────────── -->
+  <section class="s">
+    <div class="card card-v">
+      <p class="t-label">A verdade que ninguém te conta</p>
+      <h2 class="t-card-head mb-12">O problema não é você ser desinteressante.</h2>
+      <p class="t-body-sm">O problema é que o jogo das mensagens de texto é contra-intuitivo. Respostas lógicas e previsíveis matam a atração na hora. Você está gastando energia tentando usar a lógica onde deveria usar a emoção e os gatilhos certos.</p>
+    </div>
+  </section>
+
+
+  <!-- ─── 5. MECANISMO ─────────────────────── -->
+  <section class="s" id="mecanismo">
+    <p class="t-label">A solução</p>
+    <h2 class="t-section mb-14">Conheça o <span class="gt">Mestre&nbsp;da&nbsp;Conversa&nbsp;IA</span></h2>
+    <p class="t-body">Uma inteligência artificial treinada com milhares de interações reais e princípios validados de atração e persuasão. Ela não pensa como um robô genérico — ela entende as entrelinhas, as dores e os desejos do outro lado da tela para gerar atração instantânea.</p>
+    
+    <div class="mockup-image">
+      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/Captura%20de%20tela%202026-08-31%20205303.png?raw=true" alt="Interface do Mestre da Conversa IA">
+    </div>
+  </section>
+
+
+  <!-- ─── 6. DEMO ───────────────────────────── -->
+  <section class="s">
+    <p class="t-label">Como funciona</p>
+    <h2 class="t-section">Em 3 passos. Em 3 segundos.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n" aria-hidden="true">1</div>
+        <div class="step-body">
+          <h3>Tire o print</h3>
+          <p>Você tira um print da tela com a mensagem seca que ela mandou.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n" aria-hidden="true">2</div>
+        <div class="step-body">
+          <h3>Sobe na plataforma</h3>
+          <p>Sobe a imagem na nossa plataforma — direto no navegador do celular, sem baixar nada, com total privacidade.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n" aria-hidden="true">3</div>
+        <div class="step-body">
+          <h3>Copia e cola</h3>
+          <p>A IA analisa o contexto visual e te dá 3 opções de respostas impossíveis de serem ignoradas. Você apenas copia, cola e vê a mágica acontecer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 7. PUV ───────────────────────────── -->
+  <section class="s">
+    <p class="t-label">Por que é diferente</p>
+    <h2 class="t-section mb-14">Chega de gambiarras</h2>
+    <p class="t-body mb-20">O <strong class="strong">Mestre da Conversa IA</strong> lê a imagem, entende a vibração do papo e te entrega a resposta pronta. É rápido, visual e altamente conversivo.</p>
+
+    <div class="vs-grid">
+      <div class="vs-col bad">
+        <div class="vs-col-h">Outros métodos</div>
+        <ul class="vs-list">
+          <li><span>✕</span> Google "frases prontas"</li>
+          <li><span>✕</span> Explicar contexto pro ChatGPT</li>
+          <li><span>✕</span> Esperar horas por uma ideia</li>
+          <li><span>✕</span> Respostas genéricas e frias</li>
+        </ul>
+      </div>
+      <div class="vs-col good">
+        <div class="vs-col-h">Mestre da Conversa</div>
+        <ul class="vs-list">
+          <li><span>✓</span> Lê a imagem direto</li>
+          <li><span>✓</span> Entende o contexto visual</li>
+          <li><span>✓</span> Resposta em 3 segundos</li>
+          <li><span>✓</span> 3 opções personalizadas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 8. BENEFÍCIOS ────────────────────── -->
+  <section class="s">
+    <p class="t-label">O que você ganha</p>
+    <h2 class="t-section">Benefícios reais</h2>
+
+    <div class="ben-grid">
+      <div class="ben-item">
+        <span class="ben-icon">🧠</span>
+        <h3>Fim da insegurança</h3>
+        <p>Saiba sempre o que responder, sem "dar branco".</p>
+      </div>
+      <div class="ben-item">
+        <span class="ben-icon">🔥</span>
+        <h3>Blindagem contra o vácuo</h3>
+        <p>Respostas focadas em gerar curiosidade imediata.</p>
+      </div>
+      <div class="ben-item">
+        <span class="ben-icon">⚡</span>
+        <h3>Economia de energia</h3>
+        <p>Pare de gastar horas pensando em uma única mensagem.</p>
+      </div>
+      <div class="ben-item">
+        <span class="ben-icon">📅</span>
+        <h3>Mais encontros reais</h3>
+        <p>Transforme conversas frias em convites aceitos.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 9. CASOS DE USO ──────────────────── -->
+  <section class="s">
+    <p class="t-label">Onde usar</p>
+    <h2 class="t-section mb-14">Funciona em qualquer app</h2>
+    <p class="t-body">Perfeito para WhatsApp, Tinder, Instagram ou qualquer aplicativo. Use para quebrar o gelo de forma original, reviver contatos antigos que esfriaram ou virar o jogo quando ela começar a responder de forma monossilábica.</p>
+    <div class="tags">
+      <span class="tag">WhatsApp</span>
+      <span class="tag">Tinder</span>
+      <span class="tag">Instagram</span>
+      <span class="tag">Bumble</span>
+      <span class="tag">Telegram</span>
+      <span class="tag">Qualquer app</span>
+    </div>
+  </section>
+
+
+  <!-- ─── 10. PROVA ─────────────────────────── -->
+  <section class="s">
+    <p class="t-label">Resultados reais</p>
+    <h2 class="t-section">O que estão falando</h2>
+
+    <div class="testimonials">
+
+      <div class="testi">
+        <p>"Achei que ela tinha me dado ghosting. Subi o print no Mestre da Conversa, mandei a sugestão da IA e ela me respondeu rindo na mesma hora. Bizarro."</p>
+        <div class="testi-auth">
+          <div class="testi-av">R</div>
+          <span class="testi-name">Rafael T., 28 anos</span>
+        </div>
+      </div>
+
+      <div class="testi">
+        <p>"Tava travado há 3 dias sem saber o que mandar. Em 10 segundos a IA me deu 3 opções e a conversa voltou do zero. Funcionou demais."</p>
+        <div class="testi-auth">
+          <div class="testi-av">G</div>
+          <span class="testi-name">Gabriel M., 23 anos</span>
+        </div>
+      </div>
+
+      <div class="testi">
+        <p>"Ela tava respondendo com monossílabos há dois dias. Usei o Mestre da Conversa, mandei a resposta e ela me chamou pra sair no mesmo dia."</p>
+        <div class="testi-auth">
+          <div class="testi-av">F</div>
+          <span class="testi-name">Felipe A., 31 anos</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── 11. PARA QUEM ─────────────────────── -->
+  <section class="s">
+    <h2 class="t-section">Para quem é?</h2>
+
+    <div class="fw-grid">
+      <div class="fw-card yes">
+        <span class="fw-lbl">Para você</span>
+        <p>Homens que perdem oportunidades por não saberem o que falar e buscam automação rápida e prática na palma da mão.</p>
+      </div>
+      <div class="fw-card no">
+        <span class="fw-lbl">Não é para você</span>
+        <p>Quem prefere passar meses estudando teoria complexa ou gosta de colecionar contatos ignorados no celular.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 12. OBJEÇÃO ──────────────────────── -->
+  <section class="s">
+    <div class="card card-v">
+      <p style="font-size: 16px; font-weight: 700; margin-bottom: 12px; line-height: 1.35;">"Mas as respostas não vão parecer robóticas?"</p>
+      <p class="t-body-sm">De jeito nenhum. A IA foi calibrada para usar linguagem natural do dia a dia, com gírias pontuais e diferentes opções de tom. <strong class="strong">Ninguém jamais saberá que você usou uma ferramenta.</strong></p>
+    </div>
+  </section>
+
+
+  <!-- ─── 13. OFERTA ───────────────────────── -->
+  <section class="s" id="oferta">
+    <p class="t-label">Oferta especial</p>
+    <h2 class="t-section mb-20">Tudo que você recebe hoje</h2>
+
+    <div class="offer-card">
+      <p class="offer-was">Valor normal: R$ 197</p>
+      <p class="offer-label">Acesso completo por apenas</p>
+      <div class="offer-price">R$&nbsp;37<sup>,99</sup></div>
+      <p class="offer-once">pagamento único · sem mensalidade</p>
+
+      <ul class="bonus-list">
+        <li class="bonus-item">
+          <span class="bonus-icon">🤖</span>
+          <div class="bonus-text">
+            <h4>Mestre da Conversa IA</h4>
+            <p>Acesso completo à plataforma de análise de prints.</p>
+          </div>
+        </li>
+        <li class="bonus-item">
+          <span class="bonus-icon">💬</span>
+          <div class="bonus-text">
+            <h4>Bônus 1 — Kit Quebra-Gelo</h4>
+            <p>100 scripts testados para iniciar conversas.</p>
+          </div>
+        </li>
+        <li class="bonus-item">
+          <span class="bonus-icon">👁️</span>
+          <div class="bonus-text">
+            <h4>Bônus 2 — Guia de Sinais</h4>
+            <p>Aprenda a ler o nível de interesse dela.</p>
+          </div>
+        </li>
+      </ul>
+
+      <a href="https://pay.lowify.com.br/checkout?product_id=HCa2cJ" class="cta">ACESSAR AGORA</a>
+    </div>
+  </section>
+
+
+  <!-- ─── 14. JUSTIFICATIVA ────────────────── -->
+  <section class="s">
+    <div class="card card-v">
+      <p class="t-label">Por que tão barato?</p>
+      <p class="t-body" style="color: var(--t);">Porque o meu objetivo é que você veja o resultado na prática, acabe com o medo de conhecer e conversar com mulheres, e confie no método. <strong>Quanto custa perder a chance de sair com aquela pessoa incrível simplesmente porque sua mensagem foi chata?</strong> Por R$ 37,99 — o preço de um lanche — você resolve isso e assume o controle.</p>
+    </div>
+  </section>
+
+
+  <!-- ─── 15. GARANTIA ─────────────────────── -->
+  <section class="s">
+    <div class="guar-card">
+      <div class="guar-icon" aria-hidden="true">🛡️</div>
+      <div class="guar-body">
+        <h3>Risco Zero — Garantia de 7 Dias</h3>
+        <p>Acesse a plataforma, suba seus prints e teste as respostas na prática. Se a sua taxa de respostas não disparar imediatamente, basta um e-mail e devolvemos 100% do seu dinheiro. Sem letras miúdas.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 16. FAQ ──────────────────────────── -->
+  <section class="s">
+    <h2 class="t-section">Dúvidas frequentes</h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Preciso baixar algum aplicativo?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Não. A ferramenta roda direto no navegador do seu celular, com total privacidade. Não ocupa espaço no seu aparelho.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Funciona para qualquer idade?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Sim. A IA adapta o tom da conversa de acordo com o contexto do print — seja qual for o seu perfil ou idade.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Vou pagar mensalidade?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Não. O valor de R$ 37,99 é um pagamento único. Você recebe acesso completo sem cobranças recorrentes.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── 17. CTA FINAL ────────────────────── -->
+  <section class="s s-last center">
+    <p class="t-label" style="text-align: center;">Chegou a hora</p>
+    <h2 class="t-section mb-12">Chega de travar. <span class="gt">Assuma o controle.</span></h2>
+    <p class="t-body-sm mb-24">Suas próximas conversas podem ser completamente diferentes. A decisão é agora.</p>
+
+    <a href="https://pay.lowify.com.br/checkout?product_id=HCa2cJ" class="cta">QUERO ACESSO IMEDIATO AO MESTRE DA CONVERSA IA</a>
+
+    <div class="sec-badges" aria-label="Selos de segurança">
+      <span class="sec-badge">🔒 Pagamento seguro</span>
+      <span class="sec-badge">✓ Acesso imediato</span>
+      <span class="sec-badge">🛡️ 7 dias de garantia</span>
+    </div>
+  </section>
+
+
+</main>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+      });
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
