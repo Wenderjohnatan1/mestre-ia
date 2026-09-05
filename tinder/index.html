@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="IA que analisa o perfil e a conversa para te dar a mensagem exata e transformar seus matches em encontros reais.">
+<title>Mestre da Conversa IA — Do Match ao Encontro</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1715760463010660');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1715760463010660&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+
+/* ── Design tokens ── */
+:root {
+  --bg:   #09090F;
+  --s1:   #0F0F1C;
+  --s2:   #141427;
+  --s3:   #1A1A32;
+  --v:    #3b82f6;
+  --m:    #3b82f6;
+  --g:    linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --t:    #EEEDF8;
+  --mt:   #8684A8;
+  --dim:  #3C3A5C;
+  --r:    14px;
+  --rs:   10px;
+}
+
+/* ── Base ── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--t);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Ambient glow orbs ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+}
+.orb-1 {
+  width: 65vw; height: 65vw;
+  top: -15%; left: -25%;
+  background: radial-gradient(circle, rgba(59,130,246,.11) 0%, transparent 70%);
+}
+.orb-2 {
+  width: 55vw; height: 55vw;
+  bottom: 5%; right: -22%;
+  background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 70%);
+}
+
+/* ── Layout wrapper ── */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Gradient text ── */
+.gt {
+  background: var(--g);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── CTA Button ── */
+.cta {
+  display: block;
+  width: 100%;
+  padding: 18px 20px;
+  background: var(--g);
+  border: none;
+  border-radius: var(--r);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  animation: glow-pulse 3.5s ease-in-out infinite;
+  transition: transform .15s ease;
+}
+.cta:hover { transform: translateY(-2px); }
+.cta:active { transform: translateY(0); }
+
+@keyframes glow-pulse {
+  0%,100% { box-shadow: 0 0 28px rgba(59,130,246,.35); }
+  50%      { box-shadow: 0 0 48px rgba(59,130,246,.5);  }
+}
+
+/* ── Sections ── */
+.s { padding-top: 60px; }
+.s-hero {
+  padding-top: 72px;
+  position: relative;
+}
+.s-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(59,130,246,.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 0 0 24px 24px;
+}
+.s-last { padding-bottom: 80px; }
+
+/* ── Type scale ── */
+.t-hero {
+  font-size: clamp(26px, 8vw, 34px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+.t-section {
+  font-size: clamp(20px, 5.5vw, 25px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+.t-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--v);
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.t-body     { font-size: 16px;   color: var(--mt); line-height: 1.72; }
+.t-body-sm  { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+
+/* ── Cards ── */
+.card { background: var(--s1); border-radius: var(--r); padding: 24px 20px; border: 1px solid rgba(255,255,255,.04); }
+.card-r {
+  background: rgba(255,40,40,.03);
+  border: 1px solid rgba(255,60,60,.1);
+  border-left: 3px solid rgba(255,80,80,.45);
+}
+
+/* ── Impact callout ── */
+.callout {
+  background: rgba(59,130,246,.07);
+  border: 1px solid rgba(59,130,246,.18);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 20px;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--t);
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* ── Hero ── */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(59,130,246,.1);
+  border: 1px solid rgba(59,130,246,.25);
+  border-radius: 100px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--v);
+  margin-bottom: 26px;
+}
+.blink {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--v);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .2; }
+}
+.hero-lead {
+  font-size: 15px;
+  color: var(--mt);
+  line-height: 1.72;
+  margin: 14px 0 28px;
+  max-width: 400px;
+}
+
+/* ── Mockup image ── */
+.mockup-image {
+  margin: 36px auto;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mockup-image img { max-width: 280px; height: auto; }
+
+/* ── Steps ── */
+.steps { display: flex; flex-direction: column; gap: 26px; margin-top: 24px; }
+.step  { display: flex; gap: 18px; align-items: flex-start; }
+.step-n {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--g);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(59,130,246,.32);
+}
+.step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.step-body p  { font-size: 14.5px; color: var(--mt); line-height: 1.6; }
+
+/* ── Offer ── */
+.offer-card {
+  background: var(--s1);
+  border: 1px solid rgba(59,130,246,.28);
+  border-radius: var(--r);
+  padding: 32px 20px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(59,130,246,.06);
+}
+.offer-label { font-size: 13px; color: var(--mt); margin-bottom: 6px; }
+.offer-price {
+  font-size: clamp(50px, 15vw, 62px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1;
+  margin-bottom: 5px;
+  color: var(--v);
+}
+.offer-price sup { font-size: .42em; vertical-align: super; letter-spacing: -.01em; }
+.offer-once { font-size: 13px; color: var(--mt); margin-bottom: 28px; }
+
+/* ── Guarantee ── */
+.guar-card {
+  background: var(--s1);
+  border-radius: var(--r);
+  padding: 24px 20px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 1px solid rgba(59,130,246,.2);
+}
+.guar-icon { font-size: 44px; flex-shrink: 0; line-height: 1; }
+.guar-body p { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.faq-item {
+  background: var(--s1);
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.04);
+}
+.faq-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--t);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: left;
+  padding: 17px 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.4;
+}
+.faq-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(59,130,246,.12);
+  color: var(--v);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 400;
+  flex-shrink: 0;
+  transition: transform .25s, background .25s;
+  line-height: 1;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(59,130,246,.25); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner { padding: 0 18px 17px; font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+
+/* ── Footer badges ── */
+.sec-badges { display: flex; justify-content: center; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+.sec-badge  { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--dim); }
+
+/* ── Utilities ── */
+.mb-14 { margin-bottom: 14px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-28 { margin-bottom: 28px; }
+.center { text-align: center; }
+.strong { color: var(--t); font-weight: 600; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .cta, .blink { animation: none; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="orb orb-1" aria-hidden="true"></div>
+<div class="orb orb-2" aria-hidden="true"></div>
+
+<main class="page">
+
+  <!-- ─── HERO ─────────────────────────── -->
+  <section class="s s-hero">
+
+    <div class="hero-eyebrow">
+      <span class="blink" aria-hidden="true"></span>
+      Inteligência Artificial para conversas
+    </div>
+
+    <h1 class="t-hero">
+      Do Match ao Encontro: Descubra a mensagem exata para <span class="gt">transformar seus matches em encontros</span>.
+    </h1>
+
+    <p class="hero-lead">
+      Conheça a primeira Inteligência Artificial que analisa o perfil da garota e a conversa de vocês para <strong class="strong">sussurrar a resposta perfeita no seu ouvido</strong>. Sem "cantadas prontas", <span class="gt">100% focado no seu contexto</span>.
+    </p>
+
+    <div class="mockup-image">
+      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/gif%20mestre%20ia.gif?raw=true" alt="Demonstração do Mestre da Conversa IA">
+    </div>
+
+    <a href="#oferta" class="cta">QUERO TRANSFORMAR MATCHES EM ENCONTROS AGORA</a>
+
+  </section>
+
+
+  <!-- ─── DOR ────────────────────────────── -->
+  <section class="s">
+    <div class="card card-r">
+      <p style="font-size: 15px; line-height: 1.72;">
+        Você já passou por isso: consegue o match, manda a primeira mensagem e... ela manda um <strong class="strong">"legal"</strong>, responde seco ou simplesmente <span class="gt">visualiza e some</span>. <strong class="strong">Bate o branco.</strong> Você digita, apaga três vezes com medo de parecer chato ou desesperado. O tempo passa, a conversa esfria e <span class="gt">a chance de sair com ela morre ali mesmo</span>.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ─── SOLUÇÃO + DEMO ─────────────────── -->
+  <section class="s" id="demo">
+
+    <p class="t-body mb-20">
+      Você não precisa ler um e-book gigante sobre sedução ou aprender técnicas complexas para o Tinder. <strong class="strong">Você só precisa da <span class="gt">mensagem certa</span> para fazer o papo render e chamar ela para sair.</strong>
+    </p>
+
+    <div class="mockup-image">
+      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/ChatGPT%20Image%205_09_2026,%2018_15_51.png?raw=true" alt="Interface do Mestre da Conversa IA">
+    </div>
+
+    <p class="t-label" style="margin-top: 32px;">Como funciona</p>
+    <h2 class="t-section">Em 3 passos. Em 3 segundos.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n" aria-hidden="true">1</div>
+        <div class="step-body">
+          <h3>Tire um print do perfil dela ou da conversa que travou</h3>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n" aria-hidden="true">2</div>
+        <div class="step-body">
+          <h3>Envie a imagem no <span class="gt">MESTRE DA CONVERSA IA</span></h3>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n" aria-hidden="true">3</div>
+        <div class="step-body">
+          <h3>Copie uma das <strong>mensagens magnéticas</strong> geradas imediatamente e envie pra ela</h3>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ─── DIFERENCIAL ──────────────────── -->
+  <section class="s">
+    <p class="t-body mb-20">
+      Nada de frases prontas que parecem artificiais. <strong class="strong">A ferramenta analisa o print, entende o contexto exato do perfil ou do que ela te disse</strong> e entrega a <span class="gt">saída perfeita para gerar curiosidade, manter o papo vivo e avançar para o encontro</span>.
+    </p>
+
+    <div class="callout">
+      "A IA não chuta. Ela lê a conversa e <span class="gt">te diz exatamente o que mandar para marcar o encontro</span>."
+    </div>
+  </section>
+
+
+  <!-- ─── OFERTA ───────────────────────── -->
+  <section class="s" id="oferta">
+    <div class="offer-card">
+      <p class="offer-label">Liberado hoje por um pagamento único de apenas</p>
+      <div class="offer-price">R$&nbsp;19<sup>,99</sup></div>
+      <p class="offer-once">pagamento único · sem mensalidade</p>
+
+      <p style="color: var(--t); font-size: 15px; margin-bottom: 28px; line-height: 1.72;">
+        Chega de perder matches porque você não soube o que mandar. Tenha o <strong class="strong">MESTRE DA CONVERSA IA</strong> pronto pra te ajudar <span class="gt">24h por dia</span> e transforme conversas travadas em <strong class="strong">encontros reais</strong> em segundos.
+      </p>
+
+      <a href="https://pay.lowify.com.br/checkout?product_id=HCa2cJ" class="cta">LIBERAR MEU ACESSO IMEDIATAMENTE</a>
+    </div>
+  </section>
+
+
+  <!-- ─── GARANTIA ─────────────────────── -->
+  <section class="s">
+    <h2 class="t-section mb-20">Garantia de 7 Dias 🛡️</h2>
+    <div class="guar-card">
+      <div class="guar-icon" aria-hidden="true">🛡️</div>
+      <div class="guar-body">
+        <p style="font-size: 15px; line-height: 1.72; color: var(--t);">
+          <strong class="strong">Risco zero.</strong> Teste por uma semana. Envie seus prints, copie as respostas e veja ela aceitar sair com você na prática. Se os seus matches <span class="gt">não virarem encontros</span>, devolvemos seu dinheiro. Simples assim.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FAQ ──────────────────────────── -->
+  <section class="s">
+    <h2 class="t-section mb-20">Perguntas Frequentes</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Preciso ser bom de papo para usar?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Não. O Mestre da Conversa IA faz o trabalho pesado por você. Você só manda o print e copia a mensagem gerada — sem precisar pensar, sem inventar nada do zero.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          E se ela não tiver nada escrito na bio do Tinder?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Sem problema. O Mestre da Conversa IA também analisa as fotos e outros detalhes do perfil para gerar a abordagem certa. Mesmo sem bio, a IA encontra o ângulo perfeito para iniciar a conversa.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Preciso baixar algum aplicativo?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Não. O acesso é 100% online. Basta entrar pelo celular ou computador, enviar o print e usar a mensagem gerada imediatamente — sem instalação nenhuma.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Funciona para Tinder, WhatsApp, Instagram e outras plataformas?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Sim. Tinder, WhatsApp, Instagram, Telegram — qualquer conversa ou perfil que você consiga printar, o Mestre da Conversa IA consegue analisar e gerar a mensagem certa.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Como funciona a garantia de 7 dias?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Simples. Se em 7 dias os seus matches não virarem encontros, é só pedir o reembolso e devolvemos 100% do seu dinheiro. Sem burocracia e sem perguntas.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          O pagamento é seguro?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <p class="faq-a-inner">Sim. O pagamento é processado por uma plataforma certificada com criptografia SSL. Seus dados estão 100% protegidos.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── CTA FINAL ────────────────────── -->
+  <section class="s s-last center">
+    <p style="font-size: 15px; color: var(--mt); margin-bottom: 24px; line-height: 1.72;">
+      Seus próximos matches podem virar <strong class="strong">encontros reais</strong>. <span class="gt">A decisão é agora.</span>
+    </p>
+
+    <a href="https://pay.lowify.com.br/checkout?product_id=HCa2cJ" class="cta">QUERO TER A RESPOSTA PRONTA AGORA POR APENAS R$ 19,99</a>
+
+    <div class="sec-badges" aria-label="Selos de segurança">
+      <span class="sec-badge">🔒 Pagamento seguro</span>
+      <span class="sec-badge">✓ Acesso imediato</span>
+      <span class="sec-badge">🛡️ 7 dias de garantia</span>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  document.querySelectorAll('.faq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.parentElement;
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(el) {
+        el.classList.remove('open');
+        el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
