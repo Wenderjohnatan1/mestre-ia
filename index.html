@@ -41,7 +41,6 @@ button { font-family: inherit; }
   --s2:   #141427;
   --s3:   #1A1A32;
   --v:    #3b82f6;
-  --m:    #3b82f6;
   --g:    linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   --t:    #EEEDF8;
   --mt:   #8684A8;
@@ -64,32 +63,18 @@ body {
 }
 
 /* ── Ambient glow orbs ── */
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  will-change: opacity;
-}
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
 .orb-1 {
-  width: 65vw; height: 65vw;
-  top: -15%; left: -25%;
+  width: 65vw; height: 65vw; top: -15%; left: -25%;
   background: radial-gradient(circle, rgba(59,130,246,.11) 0%, transparent 70%);
 }
 .orb-2 {
-  width: 55vw; height: 55vw;
-  bottom: 5%; right: -22%;
+  width: 55vw; height: 55vw; bottom: 5%; right: -22%;
   background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 70%);
 }
 
 /* ── Layout wrapper ── */
-.page {
-  position: relative;
-  z-index: 1;
-  max-width: 460px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+.page { position: relative; z-index: 1; max-width: 460px; margin: 0 auto; padding: 0 20px; }
 
 /* ── Gradient text ── */
 .gt {
@@ -101,21 +86,11 @@ body {
 
 /* ── CTA Button ── */
 .cta {
-  display: block;
-  width: 100%;
-  padding: 18px 20px;
-  background: var(--g);
-  border: none;
-  border-radius: var(--r);
-  color: #fff;
-  font-size: 13.5px;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  animation: glow-pulse 3.5s ease-in-out infinite;
+  display: block; width: 100%; padding: 18px 20px;
+  background: var(--g); border: none; border-radius: var(--r);
+  color: #fff; font-size: 13.5px; font-weight: 700; text-align: center;
+  text-decoration: none; line-height: 1.4; letter-spacing: 0.02em;
+  cursor: pointer; animation: glow-pulse 3.5s ease-in-out infinite;
   transition: transform .15s ease;
 }
 .cta:hover { transform: translateY(-2px); }
@@ -127,298 +102,131 @@ body {
 }
 
 /* ── Sections ── */
-.s {
-  padding-top: 60px;
-}
+.s { padding-top: 60px; }
 .s-hero {
-  padding-top: 72px;
-  position: relative;
+  padding-top: 72px; position: relative;
 }
 .s-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(59,130,246,.07) 1px, transparent 1px);
-  background-size: 22px 22px;
-  pointer-events: none;
-  z-index: -1;
+  background-size: 22px 22px; pointer-events: none; z-index: -1;
   border-radius: 0 0 24px 24px;
 }
 .s-last { padding-bottom: 80px; }
 
 /* ── Type scale ── */
-.t-hero {
-  font-size: clamp(28px, 8.5vw, 36px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -.025em;
-}
-.t-section {
-  font-size: clamp(20px, 5.5vw, 25px);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -.015em;
-}
-.t-card-head {
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-.t-label {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--v);
-  letter-spacing: .04em;
-  margin-bottom: 10px;
-}
+.t-hero { font-size: clamp(28px, 8.5vw, 36px); font-weight: 800; line-height: 1.15; letter-spacing: -.025em; }
+.t-section { font-size: clamp(20px, 5.5vw, 25px); font-weight: 700; line-height: 1.25; letter-spacing: -.015em; }
+.t-label { font-size: 12.5px; font-weight: 700; color: var(--v); letter-spacing: .04em; margin-bottom: 10px; }
 .t-body { font-size: 16px; color: var(--mt); line-height: 1.72; }
 .t-body-sm { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
 
 /* ── Cards ── */
-.card {
-  background: var(--s1);
-  border-radius: var(--r);
-  padding: 24px 20px;
-  border: 1px solid rgba(255,255,255,.04);
-}
-.card-v { border-left: 3px solid var(--v); }
+.card { background: var(--s1); border-radius: var(--r); padding: 24px 20px; border: 1px solid rgba(255,255,255,.04); }
 .card-r {
+  background: rgba(255,40,40,.03);
   border: 1px solid rgba(255,60,60,.1);
   border-left: 3px solid rgba(255,80,80,.45);
-  background: rgba(255,40,40,.03);
 }
 
 /* ── Impact callout ── */
 .callout {
-  background: rgba(59,130,246,.07);
-  border: 1px solid rgba(59,130,246,.18);
-  border-radius: 10px;
-  padding: 16px 18px;
-  margin-top: 20px;
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--t);
-  line-height: 1.55;
-  text-align: center;
+  background: rgba(59,130,246,.07); border: 1px solid rgba(59,130,246,.18);
+  border-radius: 10px; padding: 16px 18px; margin-top: 20px;
+  font-size: 15.5px; font-weight: 700; color: var(--t); line-height: 1.55; text-align: center;
 }
 
-/* ─────────────────────────────────
-   HERO
-───────────────────────────────── */
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(59,130,246,.1);
-  border: 1px solid rgba(59,130,246,.25);
-  border-radius: 100px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--v);
-  margin-bottom: 26px;
-}
-.blink {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--v);
-  animation: blink 2s ease-in-out infinite;
-}
-@keyframes blink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: .2; }
-}
-.hero-lead {
-  font-size: 15px;
-  color: var(--mt);
-  line-height: 1.72;
-  margin: 14px 0 28px;
-  max-width: 400px;
-}
+/* ── YouTube Player ── */
+.yt-player-wrap { border-radius: var(--r); overflow: hidden; margin: 36px 0; aspect-ratio: 16/9; background: #000; }
+.yt-player-wrap iframe { width: 100%; height: 100%; border: none; }
 
 /* ── Mockup image ── */
-.mockup-image {
-  margin: 36px auto;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
+.mockup-image { margin: 36px auto; max-width: 100%; display: flex; justify-content: center; }
+.mockup-image img { max-width: 280px; height: auto; }
+
+/* ── Hero ── */
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; background: rgba(59,130,246,.1);
+  border: 1px solid rgba(59,130,246,.25); border-radius: 100px;
+  font-size: 12.5px; font-weight: 600; color: var(--v); margin-bottom: 26px;
 }
-.mockup-image img {
-  max-width: 280px;
-  height: auto;
-}
+.blink { width: 6px; height: 6px; border-radius: 50%; background: var(--v); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+.hero-lead { font-size: 15px; color: var(--mt); line-height: 1.72; margin: 14px 0 28px; max-width: 400px; }
 
 /* ── Steps ── */
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  margin-top: 24px;
-}
-.step {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-}
+.steps { display: flex; flex-direction: column; gap: 26px; margin-top: 24px; }
+.step  { display: flex; gap: 18px; align-items: flex-start; }
 .step-n {
-  flex-shrink: 0;
-  width: 44px; height: 44px;
-  background: var(--g);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 800;
-  color: #fff;
-  box-shadow: 0 0 22px rgba(59,130,246,.32);
+  flex-shrink: 0; width: 44px; height: 44px; background: var(--g);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 800; color: #fff; box-shadow: 0 0 22px rgba(59,130,246,.32);
 }
 .step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
 .step-body p  { font-size: 14.5px; color: var(--mt); line-height: 1.6; }
 
 /* ── Offer ── */
 .offer-card {
-  background: var(--s1);
-  border: 1px solid rgba(59,130,246,.28);
-  border-radius: var(--r);
-  padding: 32px 20px;
-  text-align: center;
+  background: var(--s1); border: 1px solid rgba(59,130,246,.28);
+  border-radius: var(--r); padding: 32px 20px; text-align: center;
   box-shadow: 0 0 40px rgba(59,130,246,.06);
 }
 .offer-label { font-size: 13px; color: var(--mt); margin-bottom: 6px; }
-.offer-price {
-  font-size: clamp(50px, 15vw, 62px);
-  font-weight: 800;
-  letter-spacing: -.04em;
-  line-height: 1;
-  margin-bottom: 5px;
-  color: var(--v);
-}
-.offer-price sup {
-  font-size: .42em;
-  vertical-align: super;
-  letter-spacing: -.01em;
-}
+.offer-price { font-size: clamp(50px, 15vw, 62px); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 5px; color: var(--v); }
+.offer-price sup { font-size: .42em; vertical-align: super; letter-spacing: -.01em; }
 .offer-once { font-size: 13px; color: var(--mt); margin-bottom: 28px; }
 
 /* ── Guarantee ── */
 .guar-card {
-  background: var(--s1);
-  border-radius: var(--r);
-  padding: 24px 20px;
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  border: 1px solid rgba(59,130,246,.2);
+  background: var(--s1); border-radius: var(--r); padding: 24px 20px;
+  display: flex; gap: 18px; align-items: flex-start; border: 1px solid rgba(59,130,246,.2);
 }
 .guar-icon { font-size: 44px; flex-shrink: 0; line-height: 1; }
-.guar-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-.guar-body p  { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
+.guar-body p { font-size: 14.5px; color: var(--mt); line-height: 1.65; }
 
 /* ── FAQ ── */
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 20px;
-}
-.faq-item {
-  background: var(--s1);
-  border-radius: var(--r);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.04);
-}
+.faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.faq-item { background: var(--s1); border-radius: var(--r); overflow: hidden; border: 1px solid rgba(255,255,255,.04); }
 .faq-btn {
-  width: 100%;
-  background: none;
-  border: none;
-  color: var(--t);
-  font-size: 14.5px;
-  font-weight: 600;
-  text-align: left;
-  padding: 17px 18px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  line-height: 1.4;
+  width: 100%; background: none; border: none; color: var(--t);
+  font-size: 14.5px; font-weight: 600; text-align: left; padding: 17px 18px;
+  cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; gap: 12px; line-height: 1.4;
 }
 .faq-icon {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: rgba(59,130,246,.12);
-  color: var(--v);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 400;
-  flex-shrink: 0;
-  transition: transform .25s, background .25s;
-  line-height: 1;
+  width: 24px; height: 24px; border-radius: 50%; background: rgba(59,130,246,.12);
+  color: var(--v); display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 400; flex-shrink: 0;
+  transition: transform .25s, background .25s; line-height: 1;
 }
-.faq-item.open .faq-icon {
-  transform: rotate(45deg);
-  background: rgba(59,130,246,.25);
-}
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .35s ease;
-}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(59,130,246,.25); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
 .faq-item.open .faq-a { max-height: 300px; }
-.faq-a-inner {
-  padding: 0 18px 17px;
-  font-size: 14.5px;
-  color: var(--mt);
-  line-height: 1.65;
-}
+.faq-a-inner { padding: 0 18px 17px; font-size: 14.5px; color: var(--mt); line-height: 1.65; }
 
 /* ── Footer badges ── */
-.sec-badges {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 18px;
-  flex-wrap: wrap;
-}
-.sec-badge {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11.5px;
-  color: var(--dim);
-}
+.sec-badges { display: flex; justify-content: center; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+.sec-badge  { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--dim); }
 
 /* ── Utilities ── */
-.mb-4  { margin-bottom: 4px;  }
-.mb-8  { margin-bottom: 8px;  }
-.mb-12 { margin-bottom: 12px; }
-.mb-14 { margin-bottom: 14px; }
-.mb-16 { margin-bottom: 16px; }
 .mb-20 { margin-bottom: 20px; }
 .mb-24 { margin-bottom: 24px; }
 .mb-28 { margin-bottom: 28px; }
 .center { text-align: center; }
 .strong { color: var(--t); font-weight: 600; }
 
-/* ── Reduced motion ── */
-@media (prefers-reduced-motion: reduce) {
-  .cta, .blink { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { .cta, .blink { animation: none; } }
 
 </style>
 </head>
 
 <body>
 
-<!-- Ambient orbs -->
 <div class="orb orb-1" aria-hidden="true"></div>
 <div class="orb orb-2" aria-hidden="true"></div>
 
 <main class="page">
-
 
   <!-- ─── HERO ─────────────────────────── -->
   <section class="s s-hero">
@@ -436,9 +244,8 @@ body {
       Sem precisar pensar, sem adivinhar e sem risco de vácuo. A ferramenta lê a conversa e em segundos te dá o <strong class="strong">texto pronto para copiar, colar e <span class="gt">deixá-la interessada</span></strong>.
     </p>
 
-    <!-- Mockup hero -->
-    <div class="mockup-image">
-      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/gif%20mestre%20ia.gif?raw=true" alt="Demonstração do Mestre da Conversa IA">
+    <div class="yt-player-wrap">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/MHPc6zg-0Zw?si=1L_xoCgNxAUSFXKx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
     <a href="#oferta" class="cta">QUERO TESTAR A IA NAS MINHAS CONVERSAS</a>
@@ -463,13 +270,12 @@ body {
       Você não precisa ler um e-book de 100 páginas ou aprender técnicas complexas. <strong class="strong">Você só precisa saber <span class="gt">o que responder agora</span>.</strong>
     </p>
 
-    <!-- Demo visual — logo abaixo da frase de impacto -->
     <div class="mockup-image">
-      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/ChatGPT%20Image%2031_08_2026,%2020_58_14.png?raw=true" alt="Interface do Mestre da Conversa IA">
+      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/ChatGPT%20Image%205_09_2026,%2018_15_51.png?raw=true" alt="Interface do Mestre da Conversa IA">
     </div>
 
     <p class="t-label" style="margin-top: 32px;">Como funciona</p>
-    <h2 class="t-section">Em 3 passos. Em 3 segundos.</h2>
+    <h2 style="font-size: clamp(20px,5.5vw,25px); font-weight:700; line-height:1.25; letter-spacing:-.015em;">Em 3 passos. Em 3 segundos.</h2>
 
     <div class="steps">
       <div class="step">
@@ -509,7 +315,6 @@ body {
 
   <!-- ─── OFERTA ───────────────────────── -->
   <section class="s" id="oferta">
-
     <div class="offer-card">
       <p class="offer-label">Liberado hoje por um pagamento único de apenas</p>
       <div class="offer-price">R$&nbsp;19<sup>,99</sup></div>
@@ -521,13 +326,12 @@ body {
 
       <a href="https://pay.lowify.com.br/checkout?product_id=HCa2cJ" class="cta">LIBERAR MEU ACESSO IMEDIATO</a>
     </div>
-
   </section>
 
 
   <!-- ─── GARANTIA ─────────────────────── -->
   <section class="s">
-    <h2 class="t-section mb-20">Garantia de 7 Dias</h2>
+    <h2 style="font-size:clamp(20px,5.5vw,25px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:20px;">Garantia de 7 Dias</h2>
     <div class="guar-card">
       <div class="guar-icon" aria-hidden="true">🛡️</div>
       <div class="guar-body">
@@ -541,7 +345,7 @@ body {
 
   <!-- ─── FAQ ──────────────────────────── -->
   <section class="s">
-    <h2 class="t-section mb-20">Perguntas Frequentes</h2>
+    <h2 style="font-size:clamp(20px,5.5vw,25px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:20px;">Perguntas Frequentes</h2>
     <div class="faq-list">
 
       <div class="faq-item">
@@ -550,7 +354,7 @@ body {
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" role="region">
-          <p class="faq-a-inner">Não. O Mestre da Conversa IA faz o trabalho pesado por você. Você só manda o print e copia a resposta gerada — sem precisar pensar, sem inventar nada do zero.</p>
+          <p class="faq-a-inner">Não. O Mestre da Conversa IA faz o trabalho pesado por você. Você só manda o print e copia a mensagem gerada — sem precisar pensar, sem inventar nada do zero.</p>
         </div>
       </div>
 
@@ -570,7 +374,7 @@ body {
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" role="region">
-          <p class="faq-a-inner">Não. O acesso é 100% online. Basta entrar pelo celular ou computador, enviar o print e usar a resposta gerada imediatamente — sem instalação nenhuma.</p>
+          <p class="faq-a-inner">Não. O acesso é 100% online. Basta entrar pelo celular ou computador, enviar o print e usar a mensagem gerada imediatamente — sem instalação nenhuma.</p>
         </div>
       </div>
 
@@ -580,7 +384,7 @@ body {
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" role="region">
-          <p class="faq-a-inner">Sim. WhatsApp, Instagram, Telegram — qualquer conversa que você consiga printar, o Mestre da Conversa IA consegue analisar e gerar a resposta certa.</p>
+          <p class="faq-a-inner">Sim. WhatsApp, Instagram, Telegram — qualquer conversa que você consiga printar, o Mestre da Conversa IA consegue analisar e gerar a mensagem certa.</p>
         </div>
       </div>
 
@@ -623,21 +427,17 @@ body {
     </div>
   </section>
 
-
 </main>
 
 <script>
-  // FAQ accordion
   document.querySelectorAll('.faq-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var item = btn.parentElement;
       var isOpen = item.classList.contains('open');
-      // fecha todos
       document.querySelectorAll('.faq-item').forEach(function(el) {
         el.classList.remove('open');
         el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
       });
-      // abre o clicado se estava fechado
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
