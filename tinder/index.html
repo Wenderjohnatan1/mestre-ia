@@ -338,6 +338,20 @@ body {
 .center { text-align: center; }
 .strong { color: var(--t); font-weight: 600; }
 
+/* ── YouTube Player ── */
+.yt-player-wrap {
+  border-radius: var(--r);
+  overflow: hidden;
+  margin: 36px 0;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+.yt-player-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .cta, .blink { animation: none; }
@@ -369,8 +383,8 @@ body {
       Conheça a primeira Inteligência Artificial que analisa o perfil da garota e a conversa de vocês para <strong class="strong">sussurrar a resposta perfeita no seu ouvido</strong>. Sem "cantadas prontas", <span class="gt">100% focado no seu contexto</span>.
     </p>
 
-    <div class="mockup-image">
-      <img src="https://github.com/Wenderjohnatan1/imagens/blob/main/gif%20mestre%20ia.gif?raw=true" alt="Demonstração do Mestre da Conversa IA">
+    <div class="yt-player-wrap">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/MHPc6zg-0Zw?si=1L_xoCgNxAUSFXKx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
     <a href="#oferta" class="cta">QUERO TRANSFORMAR MATCHES EM ENCONTROS AGORA</a>
@@ -555,6 +569,7 @@ body {
 </main>
 
 <script>
+  // FAQ accordion
   document.querySelectorAll('.faq-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var item = btn.parentElement;
